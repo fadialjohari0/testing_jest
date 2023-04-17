@@ -55,7 +55,7 @@ describe("getUserData", () => {
   });
 
   it("handles API request error", async () => {
-    const errorMessage = "API request failed";
+    const errorMessage = "API request failed!";
     axios.get.mockRejectedValue(new Error(errorMessage));
     const consoleErrorMock = jest.fn();
     console.error = consoleErrorMock;
