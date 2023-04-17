@@ -43,7 +43,7 @@ describe("filterByAge function", () => {
 jest.mock("axios");
 
 describe("getUserData", () => {
-  test("retrieves user data from API", async () => {
+  it("retrieves user data from API", async () => {
     const expectedData = {
       id: 1,
       name: "John Doe",
@@ -52,5 +52,15 @@ describe("getUserData", () => {
     axios.get.mockResolvedValue({ data: expectedData });
     const result = await getUserData(1);
     expect(result).toEqual(expectedData);
+  });
+
+  it("handles API request error", async () => {
+    const errorMessage = "API request failed";
+    axios.get.mockRejectedValue(new Error(errorMessage));
+    const consoleErrorMock = jest.fn();
+    console.error = consoleErrorMock;
+    const result = await getUserData(1);
+    expect(result).toBeUndefined();
+    expect(consoleErrorMock).toHaveBeenCalledWith(new Error(errorMessage));
   });
 });
