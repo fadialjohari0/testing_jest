@@ -6,10 +6,14 @@ const filterByAge = (people, age) =>
   people.filter((person) => person.age === age);
 
 const getUserData = async (userId) => {
-  const response = await axios.get(
-    `https://jsonplaceholder.typicode.com/users/${userId}`
-  );
-  return response.data;
+  try {
+    const response = await axios.get(
+      `https://jsonplaceholder.typicode.com/users/${userId}`
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 module.exports = { capitalize, filterByAge, getUserData };
